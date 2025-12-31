@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MarksheetModel {
-	public void add(MarksheetBean bean) throws ClassNotFoundException, SQLException {	Class.forName("com.mysql.cj.jdbc.Driver");
+	public void add(MarksheetBean bean) throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/people","root","root");
 		PreparedStatement pstmt=conn.prepareStatement("insert into st_Marksheet values (?,?,?,?,?,?)");
 		
@@ -104,12 +105,39 @@ public class MarksheetModel {
 			list.add(bean);
 			
 		}
+		return list;	
+	}
+	public List searchByFilter(MarksheetBean bean) throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/people", "root", "root");
+        StringBuffer sql = new StringBuffer("select * from st_Marksheet where 1=1");
+		
+		if(bean!=null) {
+			if(bean.getName()!=null) {
+				sql.append(" and Name like '" + bean.getName() + "%'");
+				
+			}
+		}
+		System.out.println("sql ===> " + sql.toString());
+		PreparedStatement pstmt=conn.prepareStatement(sql.toString());
+		ResultSet rs=pstmt.executeQuery();
+		
+		List list = new ArrayList();
+		
+		while (rs.next()) {
+			bean=new MarksheetBean();
+			System.out.println(rs.getInt(1));
+			System.out.println(rs.getInt(2));
+			System.out.println(rs.getString(3));
+			System.out.println(rs.getInt(4));
+			System.out.println(rs.getInt(5));
+			System.out.println(rs.getInt(6));
+			
+			list.add(bean);
+			
+		}
 		return list;
-		
-		
-		
-		
-		
+
 		
 	}
 	

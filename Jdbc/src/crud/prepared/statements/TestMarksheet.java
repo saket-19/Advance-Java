@@ -10,7 +10,8 @@ public class TestMarksheet {
 	    //testUpdate();
 	    //testDelete();
 		//testfindByRollno();
-		testSearch();
+		//testSearch();
+		testSearchByFilter();
 	}
 	
 	public static void testAdd() throws ClassNotFoundException, SQLException {
@@ -94,6 +95,31 @@ public class TestMarksheet {
 			
 
 		}
+	 public static void testSearchByFilter() throws ClassNotFoundException, SQLException {
+		 MarksheetModel model = new MarksheetModel();
+			MarksheetBean bean = new MarksheetBean();
+			bean.setName("a");
+
+			List list = model.searchByFilter(bean);
+		
+			
+			Iterator<MarksheetBean> it = list.iterator();
+			
+			while(it.hasNext()) {
+				bean = it.next();
+				System.out.println(bean.getId());
+				System.out.println(bean.getRollno());
+				System.out.println(bean.getName());
+				System.out.println(bean.getPhy());
+				System.out.println(bean.getChem());
+				System.out.println(bean.getMaths());
+				
+				
+				
+			}
+		 
+	 }
+	
 
 	}
 
